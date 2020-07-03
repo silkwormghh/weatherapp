@@ -10,6 +10,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/app.css">
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -30,39 +32,42 @@
 		<div class="card">
 			<div class="card-body">
 				<div th:switch="${weatherData}">
-					<div class="row">
+					<div class="row p-2">
 						<div class="col-md-10">
-							<h1>Daily Forecast</h1>
+							<h1>
+								<i class="fa fa-sun-o" aria-hidden="true"></i>
+								[[#{NL001}]]
+							</h1>
 						</div>
 						<div class="col-md-2">
-							<p>
-								<a href="/weather/list/refresh" class="btn btn-primary">Refresh</a>
-							</p>
+							<h3 class="justify-content-center">
+								<a href="/weather/list/refresh"><i class="fa fa-refresh"
+									aria-hidden="true"></i> [[#{BL001}]]</a>
+							</h3>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<h2 th:case="null">Unable to retrieve data...Click Refresh
-								to retrieve data</h2>
+							<h2 th:case="null">[[#{ER001}]]</h2>
 							<div th:case="*">
-								<table class="table table-hover table-striped table-bordered table-responsive-md">
-									<thead >
+								<table
+									class="table table-hover table-striped  table-responsive-md">
+									<thead>
 										<tr>
-											<th scope="col">Location</th>
-											<th scope="col">Time of Forecast</th>
-											<th scope="col">Time Zone</th>
-											<th scope="col">Forecast</th>
-											<th scope="col">Details</th>
+											<th scope="col">[[#{NL002}]]</th>
+											<th scope="col">[[#{NL003}]]</th>
+											<th scope="col">[[#{NL004}]]</th>
+											<th scope="col"></th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr th:each="data : ${weatherData}">
 											<td scope="row" th:text="${data.location}"></td>
-											<td scope="row" th:text="${data.timeDisplay}"></td>
-											<td scope="row" th:text="${data.timezone}"></td>
-											<td scope="row"th:text="${data.summary}"></td>
-											<td scope="row"><a th:href="@{/weather/details/{id}(id=${data.id})}"
-												class="btn btn-primary">Details</a></td>
+											<td scope="row" th:text="${data.dateDisplay}"></td>
+											<td scope="row" th:text="${data.summary}"></td>
+											<td scope="row"><a
+												th:href="@{/weather/details/{id}(id=${data.id})}"><i
+													class="fa fa-bars" aria-hidden="true"></i></a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -75,8 +80,7 @@
 		<footer class="container mt-4">
 			<div class="row">
 				<div class="col">
-					<p class="text-center">
-						Powered by <a href="https://darksky.net/poweredby/">Dark Sky</a>
+					<p class="text-center">[[#{NL005}]] <a href="https://darksky.net/poweredby/">[[#{NL006}]]</a>
 					</p>
 				</div>
 			</div>

@@ -26,17 +26,17 @@ public class ConfigurationCustomRepositoryImpl implements IConfigurationCustomRe
 
     @Override
     public String findSecretKey() {
-	return this.findConfigValue("secret-key", null);
+	return this.findConfigValue(Constants.SECRET_KEY_CONFIG, null);
     }
     
     @Override
     public String findDarkApiUrl() {
-	return this.findConfigValue("dark-sky-url", Constants.DARK_SKY_URL);
+	return this.findConfigValue(Constants.DARK_SKY_URL_CONFIG, Constants.DARK_SKY_URL);
     }
     
     private String findConfigValue(String configName, String defaultValue) {
 	String key = null;
-	Query query = new Query(Criteria.where("config").is(configName));
+	Query query = new Query(Criteria.where(Constants.CONFIG).is(configName));
 	
 	List<Configuration>  lst = mongoTemplate.find(query, Configuration.class);
 

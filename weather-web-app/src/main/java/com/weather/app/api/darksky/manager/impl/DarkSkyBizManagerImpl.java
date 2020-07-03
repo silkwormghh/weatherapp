@@ -17,6 +17,7 @@ import com.weather.app.document.LocationConfiguration;
 import com.weather.app.document.WeatherData;
 import com.weather.app.repository.ILocationConfigurationRepository;
 import com.weather.app.repository.IWeatherDataCustomRepository;
+import com.weather.app.resources.Constants;
 import com.weather.app.resources.TimeUtils;
 
 @Component
@@ -38,7 +39,7 @@ public class DarkSkyBizManagerImpl implements IDarkSkyBizManager {
 	List<LocationConfiguration> lst = this.locationRepository.findAll();
 
 	if (CollectionUtils.isNotEmpty(lst)) {
-	    logger.info("Num of Locations retrieved " + lst.size());
+	    logger.info(String.format(Constants.NUM_OF_LOCATIONS_RET, lst.size()));
 
 	    for (LocationConfiguration locationConfig : lst) {
 		String lattitude = locationConfig.getLattitude();
@@ -47,31 +48,29 @@ public class DarkSkyBizManagerImpl implements IDarkSkyBizManager {
 		String timezone = locationConfig.getTimezone();
 
 		if (this.isNeedToRetrieve(location, timezone)) {
-		    logger.info("Retrieving for " + lattitude + ", " + longitude + ", " + location);
+		    logger.info(String.format(Constants.LAT_LOG_LOCATION_USED_FOR_RET, lattitude, longitude, location));
 
-		    DarkSkyResponseBean bean = this.darkSkyRestClient.retrieveWeatherData(lattitude, longitude, timezone);
+		    DarkSkyResponseBean bean = this.darkSkyRestClient.retrieveWeatherData(lattitude, longitude,
+			    timezone);
 		    this.weatherDataCustomRepository.insert(mapToEntiy(bean, location));
-
-		    if (bean != null) {
-			logger.info(" Bean:  " + bean.toString());
-		    }
-		}else {
-		    logger.info("Skipping retrieval for " + lattitude + ", " + longitude + ", " + location);
+		} else {
+		    logger.info(String.format(Constants.LAT_LOG_LOCATION_SKIPPED, lattitude, longitude, location));
 		}
 	    }
 
 	} else {
-	    logger.info("Nothing retrieved from db");
+	    logger.info(Constants.NTH_RET_FM_DB);
 	}
 
     }
-    
+
     @Override
     public List<WeatherData> getWeatherDataForToday() {
 	List<LocationConfiguration> locationConfigurations = this.locationRepository.findAll();
 	List<WeatherData> lstOfWeatherData = new ArrayList<>();
 	for (LocationConfiguration locationConfig : locationConfigurations) {
-	    WeatherData data = this.weatherDataCustomRepository.findTodaysForeCastByLocationAndTimezone(locationConfig.getLocation(), locationConfig.getTimezone());
+	    WeatherData data = this.weatherDataCustomRepository.findTodaysForeCastByLocationAndTimezone(
+		    locationConfig.getLocation(), locationConfig.getTimezone());
 	    if (data != null) {
 		lstOfWeatherData.add(data);
 	    }
@@ -79,19 +78,20 @@ public class DarkSkyBizManagerImpl implements IDarkSkyBizManager {
 
 	return lstOfWeatherData;
     }
-    
+
     @Override
     public void housekeepOldData() {
 	List<LocationConfiguration> locationConfigurations = this.locationRepository.findAll();
 	for (LocationConfiguration locationConfig : locationConfigurations) {
-	    this.weatherDataCustomRepository.removeDataFromThreeDaysAgoByLocationAndTimezone(locationConfig.getLocation(), locationConfig.getTimezone());
+	    this.weatherDataCustomRepository.removeDataFromThreeDaysAgoByLocationAndTimezone(
+		    locationConfig.getLocation(), locationConfig.getTimezone());
 	}
-	
+
     }
 
     private boolean isNeedToRetrieve(String location, String timezone) {
 	boolean isRetrieve = true;
-	if( this.weatherDataCustomRepository.findTodaysForeCastByLocationAndTimezone(location, timezone) != null) {
+	if (this.weatherDataCustomRepository.findTodaysForeCastByLocationAndTimezone(location, timezone) != null) {
 	    isRetrieve = false;
 	}
 	return isRetrieve;
@@ -101,111 +101,95 @@ public class DarkSkyBizManagerImpl implements IDarkSkyBizManager {
 	List<WeatherData> weatherDataLst = new ArrayList<>();
 
 	if (bean.getDaily() != null && CollectionUtils.isNotEmpty(bean.getDaily().getData())) {
-		WeatherData data = new WeatherData();
-		data.setLocation(location);
-		data.setLatitude(bean.getLatitude());
-		data.setLongitude(bean.getLongitude());
-		data.setTimezone(bean.getTimezone());
+	    WeatherData data = new WeatherData();
+	    data.setLocation(location);
+	    data.setLatitude(bean.getLatitude());
+	    data.setLongitude(bean.getLongitude());
+	    data.setTimezone(bean.getTimezone());
 
-		for (DarkSkyDataPointBean dataBean : bean.getDaily().getData()) {
-		    data.setApparentTemperature(dataBean.getApparentTemperature());
-		    data.setApparentTemperatureHigh(dataBean.getApparentTemperatureHigh());
+	    for (DarkSkyDataPointBean dataBean : bean.getDaily().getData()) {
+		data.setApparentTemperature(dataBean.getApparentTemperature());
+		data.setApparentTemperatureHigh(dataBean.getApparentTemperatureHigh());
+		data.setApparentTemperatureLow(dataBean.getApparentTemperatureLow());
+		data.setApparentTemperatureMax(dataBean.getApparentTemperatureMax());
+		data.setApparentTemperatureMin(dataBean.getTemperatureMin());
+		data.setCloudCover(dataBean.getCloudCover());
+		data.setDewPoint(dataBean.getDewPoint());
+		data.setHumidity(dataBean.getHumidity());
+		data.setIcon(dataBean.getIcon());
+		data.setMoonPhase(dataBean.getMoonPhase());
+		data.setNearestStormDistance(dataBean.getNearestStormDistance());
+		data.setOzone(dataBean.getOzone());
+		data.setPrecipIntensity(dataBean.getPrecipIntensity());
+		data.setPrecipIntensityError(dataBean.getPrecipIntensityError());
+		data.setPrecipIntensityMax(dataBean.getPrecipIntensityMax());
+		data.setPrecipIntensityMaxTime(dataBean.getPrecipIntensityMaxTime());
+		data.setPrecipProbability(dataBean.getPrecipProbability());
+		data.setPrecipType(dataBean.getPrecipType());
+		data.setPressure(dataBean.getPressure());
+		data.setSummary(dataBean.getSummary());
+		data.setTemperatureHigh(dataBean.getTemperatureHigh());
+		data.setTemperatureLow(dataBean.getTemperatureLow());
+		data.setTemperatureMax(dataBean.getTemperatureMax());
+		data.setTemperatureMin(dataBean.getTemperatureMin());
+		data.setUvIndex(dataBean.getUvIndex());
+		data.setVisibility(dataBean.getVisibility());
+		data.setWindBearing(dataBean.getWindBearing());
+		data.setWindGust(dataBean.getWindGust());
+		data.setWindSpeed(dataBean.getWindSpeed());
 
-		    data.setApparentTemperatureHighTime(dataBean.getApparentTemperatureHighTime());
-		    data.setApparentTemperatureHighTimeDisplay(TimeUtils.convertUnixTimeToSimpleDateFormat(
-			    dataBean.getApparentTemperatureHighTime(), bean.getTimezone()));
+		// Time attributes
+		data.setApparentTemperatureLowTime(dataBean.getApparentTemperatureLowTime());
+		data.setApparentTemperatureMaxTime(dataBean.getApparentTemperatureMaxTime());
+		data.setApparentTemperatureMinTime(dataBean.getApparentTemperatureMin());
+		data.setSunriseTime(dataBean.getSunriseTime());
+		data.setSunsetTime(dataBean.getSunsetTime());
+		data.setTemperatureHighTime(dataBean.getTemperatureHighTime());
+		data.setTemperatureLowTime(dataBean.getTemperatureLowTime());
+		data.setTemperatureMaxTime(dataBean.getTemperatureMaxTime());
+		data.setTemperatureMinTime(dataBean.getTemperatureMinTime());
+		data.setTime(dataBean.getTime());
+		data.setApparentTemperatureHighTime(dataBean.getApparentTemperatureHighTime());
+		data.setWindGustTime(dataBean.getWindGustTime());
+		data.setDateTimeField(TimeUtils.convertUnixTimeToLocalDateTime(dataBean.getTime(), bean.getTimezone()));
 
-		    data.setApparentTemperatureLow(dataBean.getApparentTemperatureLow());
+		// Format for display purpose
 
-		    data.setApparentTemperatureLowTime(dataBean.getApparentTemperatureLowTime());
-		    data.setApparentTemperatureLowTimeDisplay(TimeUtils.convertUnixTimeToSimpleDateFormat(
-			    dataBean.getApparentTemperatureLowTime(), bean.getTimezone()));
+		data.setApparentTemperatureLowTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getApparentTemperatureLowTime(), bean.getTimezone()));
 
-		    data.setApparentTemperatureMax(dataBean.getApparentTemperatureMax());
+		data.setApparentTemperatureMaxTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getApparentTemperatureMaxTime(), bean.getTimezone()));
 
-		    data.setApparentTemperatureMaxTime(dataBean.getApparentTemperatureMaxTime());
-		    data.setApparentTemperatureMaxTimeDisplay(TimeUtils.convertUnixTimeToSimpleDateFormat(
-			    dataBean.getApparentTemperatureMaxTime(), bean.getTimezone()));
-		    data.setApparentTemperatureMin(dataBean.getTemperatureMin());
+		data.setApparentTemperatureMinTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getApparentTemperatureMinTime(), bean.getTimezone()));
 
-		    data.setApparentTemperatureMinTime(dataBean.getApparentTemperatureMin());
-		    data.setApparentTemperatureMinTimeDisplay(TimeUtils.convertUnixTimeToSimpleDateFormat(
-			    dataBean.getApparentTemperatureMinTime(), bean.getTimezone()));
+		data.setSunriseTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getSunriseTime(), bean.getTimezone()));
+		
+		data.setSunsetTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getSunsetTime(), bean.getTimezone()));
 
-		    data.setCloudCover(dataBean.getCloudCover());
-		    data.setDewPoint(dataBean.getDewPoint());
-		    data.setHumidity(dataBean.getHumidity());
-		    data.setIcon(dataBean.getIcon());
-		    data.setMoonPhase(dataBean.getMoonPhase());
-		    data.setNearestStormDistance(dataBean.getNearestStormDistance());
-		    data.setOzone(dataBean.getOzone());
-		    data.setPrecipIntensity(dataBean.getPrecipIntensity());
-		    data.setPrecipIntensityError(dataBean.getPrecipIntensityError());
-		    data.setPrecipIntensityMax(dataBean.getPrecipIntensityMax());
-		    data.setPrecipIntensityMaxTime(dataBean.getPrecipIntensityMaxTime());
-		    data.setPrecipProbability(dataBean.getPrecipProbability());
-		    data.setPrecipType(dataBean.getPrecipType());
-		    data.setPressure(dataBean.getPressure());
-		    data.setSummary(dataBean.getSummary());
+		data.setTemperatureHighTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getTemperatureHighTime(), bean.getTimezone()));
 
-		    data.setSunriseTime(dataBean.getSunriseTime());
+		data.setTemperatureLowTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getTemperatureLowTime(), bean.getTimezone()));
 
-		    data.setSunriseTimeDisplay(
-			    TimeUtils.convertUnixTimeToSimpleDateFormat(dataBean.getSunriseTime(), bean.getTimezone()));
-		    data.setSunsetTime(dataBean.getSunsetTime());
-		    data.setSunsetTimeDisplay(
-			    TimeUtils.convertUnixTimeToSimpleDateFormat(dataBean.getSunsetTime(), bean.getTimezone()));
+		data.setTemperatureMaxTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getTemperatureMaxTime(), bean.getTimezone()));
 
-		    data.setTemperatureHigh(dataBean.getTemperatureHigh());
-		    data.setTemperatureHighTime(dataBean.getTemperatureHighTime());
-		    data.setTemperatureHighTimeDisplay(dataBean.getTemperatureHighTime());
-		    data.setTemperatureLow(dataBean.getTemperatureLow());
-		    data.setTemperatureLowTime(dataBean.getTemperatureLowTime());
+		data.setTemperatureMinTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getTemperatureMinTime(), bean.getTimezone()));
 
-		    data.setTemperatureLowTimeDisplay(TimeUtils
-			    .convertUnixTimeToSimpleDateFormat(dataBean.getTemperatureLowTime(), bean.getTimezone()));
-		    data.setTemperatureMax(dataBean.getTemperatureMax());
-		    data.setTemperatureMaxTime(dataBean.getTemperatureMaxTime());
-		    data.setTemperatureMaxTimeDisplay(TimeUtils
-			    .convertUnixTimeToSimpleDateFormat(dataBean.getTemperatureMaxTime(), bean.getTimezone()));
+		data.setDateDisplay(TimeUtils.getDateFromUnixTime(dataBean.getTime(), bean.getTimezone()));
+		
 
-		    data.setTemperatureMin(dataBean.getTemperatureMin());
-		    data.setTemperatureMinTime(dataBean.getTemperatureMinTime());
-		    data.setTemperatureMinTimeDisplay(TimeUtils
-			    .convertUnixTimeToSimpleDateFormat(dataBean.getTemperatureMinTime(), bean.getTimezone()));
+		data.setApparentTemperatureHighTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getApparentTemperatureHighTime(), bean.getTimezone()));
 
-		    data.setTime(dataBean.getTime());
-		    data.setTimeDisplay(TimeUtils
-			    .convertUnixTimeToSimpleDateFormat(dataBean.getTime(), bean.getTimezone()));
-		    data.setDateTimeField(
-			    TimeUtils.convertUnixTimeToLocalDateTime(dataBean.getTime(), bean.getTimezone()));
+		data.setWindGustTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getWindGustTime(),bean.getTimezone()));
 
-		    data.setUvIndex(dataBean.getUvIndex());
-
-		    data.setUvIndexTime(
-			    TimeUtils.convertUnixTimeToSimpleDateFormat(dataBean.getUvIndexTime(), bean.getTimezone()));
-
-		    data.setVisibility(dataBean.getVisibility());
-		    data.setWindBearing(dataBean.getWindBearing());
-		    data.setWindGust(dataBean.getWindGust());
-
-		    data.setWindGustTime(dataBean.getWindGustTime());
-
-		    data.setWindGustTimeDisplay(TimeUtils.convertUnixTimeToSimpleDateFormat(dataBean.getWindGustTime(),
-			    bean.getTimezone()));
-
-		    data.setWindSpeed(dataBean.getWindSpeed());
-
-		}
-
-		weatherDataLst.add(data);
+		data.setUvIndexTime(TimeUtils.getTimeFromUnixTime(dataBean.getUvIndexTime(), bean.getTimezone()));
 
 	    }
+
+	    weatherDataLst.add(data);
+
+	}
 
 	return weatherDataLst;
 
     }
-
- 
 
 }

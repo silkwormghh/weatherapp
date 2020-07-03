@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.weather.app.api.darksky.manager.IDarkSkyBizManager;
 import com.weather.app.document.WeatherData;
 import com.weather.app.repository.IWeatherDataCustomRepository;
+import com.weather.app.resources.Constants;
 
 @Controller
 @RequestMapping("/weather/")
@@ -25,24 +26,24 @@ public class WeatherController {
 	this.darkSkyBizManager = darkSkyBizManager;
     }
 
-    @GetMapping("list")
+    @GetMapping(Constants.LIST_PATH)
     public String showAllDetails(Model model) {
-	model.addAttribute("weatherData", darkSkyBizManager.getWeatherDataForToday());
-	return "index";
+	model.addAttribute(Constants.WEATHER_DATA, darkSkyBizManager.getWeatherDataForToday());
+	return Constants.INDEX;
     }
 
-    @GetMapping("list/refresh")
+    @GetMapping(Constants.REFRESH_PATH)
     public String refreshModel(Model model) {
 	this.darkSkyBizManager.retrieveDarkSkyData();
 	showAllDetails(model);
-	return "index";
+	return Constants.INDEX;
     }
 
-    @GetMapping("details/{id}")
-    public String showUpdateForm(@PathVariable("id") String id, Model model) {
+    @GetMapping(Constants.DETAILS_ID_PATH)
+    public String showUpdateForm(@PathVariable(Constants.ID) String id, Model model) {
 	WeatherData data = this.weatherDataRepository.findById(id);
-	model.addAttribute("detail", data);
-	return "show-details";
+	model.addAttribute(Constants.DETAIL, data);
+	return Constants.SHOW_DETAILS;
     }
 
 

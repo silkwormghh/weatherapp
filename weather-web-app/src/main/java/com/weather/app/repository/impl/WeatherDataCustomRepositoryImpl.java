@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 import com.weather.app.document.WeatherData;
 import com.weather.app.repository.IWeatherDataCustomRepository;
 import com.weather.app.repository.IWeatherDataRepository;
+import com.weather.app.resources.Constants;
+
 @Component
 public class WeatherDataCustomRepositoryImpl implements IWeatherDataCustomRepository {
 
@@ -49,8 +51,8 @@ public class WeatherDataCustomRepositoryImpl implements IWeatherDataCustomReposi
     public WeatherData findTodaysForeCastByLocationAndTimezone(String location, String timezone) {
 	LocalDateTime today = LocalDateTime.now().atZone(ZoneId.of(timezone)).toLocalDateTime().truncatedTo(ChronoUnit.DAYS);
 	LocalDateTime tmrw = today.plusDays(1).truncatedTo(ChronoUnit.DAYS);
-	Query query = new Query().addCriteria(Criteria.where("dateTimeField").gte(today).lt(tmrw));
-	query.addCriteria(Criteria.where("location").is(location));
+	Query query = new Query().addCriteria(Criteria.where(Constants.DATE_TIME_FIELD).gte(today).lt(tmrw));
+	query.addCriteria(Criteria.where(Constants.LOCATION).is(location));
 	return mongoTemplate.findOne(query, WeatherData.class);
     }
 
@@ -58,7 +60,7 @@ public class WeatherDataCustomRepositoryImpl implements IWeatherDataCustomReposi
     @Override
     public void removeDataFromThreeDaysAgoByLocationAndTimezone(String location, String timezone) {
 	LocalDateTime threeDaysAgo = LocalDateTime.now().minusDays(3).atZone(ZoneId.of(timezone)).toLocalDateTime().truncatedTo(ChronoUnit.DAYS);
-	Query query = new Query().addCriteria(Criteria.where("dateTimeField").lte(threeDaysAgo));
+	Query query = new Query().addCriteria(Criteria.where(Constants.DATE_TIME_FIELD).lte(threeDaysAgo));
 	mongoTemplate.findAllAndRemove(query, WeatherData.class);
 	
     }
