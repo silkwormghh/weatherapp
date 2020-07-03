@@ -115,20 +115,17 @@
 										th:text="${detail.nearestStormDistance?:'-'}"></div>
 								</div>
 								<div class="row p-2">
-									<div class="col-md-3 font-weight-bold">[[#{NL018}]]</div>
-									<div class="col-md-3" th:text="${detail.ozone?:'-'}"></div>
+									<div class="col-md-3 font-weight-bold">[[#{NL019}]]</div>
+									<div class="col-sm-3" th:text="${detail.uvIndex?:'-'}"></div>
+									<div class="col-md-3 font-weight-bold">[[#{NL020}]]</div>
+									<div class="col-sm-3"
+										th:text="${detail.uvIndexTimeDisplay?:'-'}"></div>
 								</div>
 							</div>
 							<div class=" form-group">
 								<div class="row p-2">
-									<div class="col-md-3 font-weight-bold">[[#{NL019}]]</div>
-									<div class="col-sm-3" th:text="${detail.uvIndex?:'-'}"></div>
-								</div>
-								<div class="row p-2">
-									<div class="col-md-3 font-weight-bold">[[#{NL020}]]</div>
-									<div class="col-sm-3"
-										th:text="${detail.uvIndexTimeDisplay?:'-'}"></div>
-
+									<div class="col-md-3 font-weight-bold">[[#{NL018}]]</div>
+									<div class="col-md-3" th:text="${detail.ozone?:'-'}"></div>
 								</div>
 							</div>
 						</div>
@@ -197,6 +194,8 @@
 												<th scope="col">[[#{NL044}]]</th>
 												<th scope="col">[[#{NL045}]]</th>
 											</tr>
+										</thead>
+										<tbody>
 											<tr>
 												<th scope="row">[[#{NL034}]]</th>
 												<td th:text="${detail.temperatureLow?:'-'}"></td>
@@ -217,10 +216,6 @@
 												<td th:text="${detail.temperatureMax?:'-'}"></td>
 												<td th:text="${detail.temperatureMaxTimeDisplay?:'-'}"></td>
 											</tr>
-
-										</thead>
-										<tbody>
-
 										</tbody>
 									</table>
 								</div>
@@ -239,6 +234,8 @@
 												<th scope="col">[[#{NL044}]]</th>
 												<th scope="col">[[#{NL045}]]</th>
 											</tr>
+										</thead>
+										<tbody>
 											<tr>
 												<th scope="row">[[#{NL043}]]</th>
 												<td th:text="${detail.apparentTemperature?:'-'}"></td>
@@ -269,9 +266,6 @@
 													th:text="${detail.apparentTemperatureMaxTimeDisplay?:'-'}"></td>
 											</tr>
 
-										</thead>
-										<tbody>
-
 										</tbody>
 									</table>
 								</div>
@@ -286,7 +280,7 @@
 		<div class="row">
 			<div class="col">
 				<p class="text-center">
-					Powered by <a href="https://darksky.net/poweredby/">Dark Sky</a>
+					<p class="text-center">[[#{NL005}]] <a href="https://darksky.net/poweredby/">[[#{NL006}]]</a>
 				</p>
 			</div>
 		</div>
