@@ -61,6 +61,7 @@ public class WeatherData {
     private String temperatureMinTime;
     private String temperatureMinTimeDisplay;
     private String time;
+    private String timeDisplay;
     private String dateDisplay;
     private String uvIndex;
     private String uvIndexTime;
@@ -487,6 +488,14 @@ public class WeatherData {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getTimeDisplay() {
+	return timeDisplay;
+    }
+
+    public void setTimeDisplay(String timeDisplay) {
+	this.timeDisplay = timeDisplay;
     }
 
     public String getDateDisplay() {

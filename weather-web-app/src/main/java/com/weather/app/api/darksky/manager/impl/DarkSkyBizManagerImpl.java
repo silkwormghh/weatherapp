@@ -175,7 +175,7 @@ public class DarkSkyBizManagerImpl implements IDarkSkyBizManager {
 
 		data.setDateDisplay(TimeUtils.getDateFromUnixTime(dataBean.getTime(), bean.getTimezone()));
 		
-
+		data.setTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getTime(), bean.getTimezone()));
 		data.setApparentTemperatureHighTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getApparentTemperatureHighTime(), bean.getTimezone()));
 
 		data.setWindGustTimeDisplay(TimeUtils.getTimeFromUnixTime(dataBean.getWindGustTime(),bean.getTimezone()));

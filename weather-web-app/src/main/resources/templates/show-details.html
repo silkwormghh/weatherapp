@@ -89,39 +89,43 @@
 					<div id="summary" class="tab-pane show active" role="tabpanel">
 						<div class="p-3">
 							<div class=" form-group">
-								<div class="row">
-									<div class="col-md-3">[[#{NL012}]]</div>
-									<div class="col-md-3">[[#{NL013}]]</div>
-									<div class="col-md-3">[[#{NL014}]]</div>
-									<div class="col-md-3">[[#{NL015}]]</div>
+								<div class="row p-2">
+									<div class="col-md-3 col-sm-4 font-weight-bold">[[#{NL012}]]</div>
+									<div class="col-md-3 col-sm-3"
+										th:text="${detail.cloudCover?:'-'}"></div>
+									<div class="col-md-3 col-sm-2 font-weight-bold">[[#{NL013}]]</div>
+									<div class="col-md-3 col-sm-3"
+										th:text="${detail.dewPoint?:'-'}"></div>
 								</div>
-								<div class="row">
-									<div class="col-md-3" th:text="${detail.cloudCover?:'-'}"></div>
-									<div class="col-md-3" th:text="${detail.dewPoint?:'-'}"></div>
-									<div class="col-md-3" th:text="${detail.humidity?:'-'}"></div>
-									<div class="col-md-3" th:text="${detail.pressure?:'-'}"></div>
+								<div class="row p-2">
+									<div class="col-md-3 col-sm-3 font-weight-bold">[[#{NL014}]]</div>
+									<div class="col-md-3 col-sm-3"
+										th:text="${detail.humidity?:'-'}"></div>
+									<div class="col-md-3 col-sm-3 font-weight-bold">[[#{NL015}]]</div>
+									<div class="col-md-3 col-sm-3"
+										th:text="${detail.pressure?:'-'}"></div>
 								</div>
 							</div>
 							<div class=" form-group">
-								<div class="row">
-									<div class="col-md-3">[[#{NL016}]]</div>
-									<div class="col-md-3">[[#{NL017}]]</div>
-									<div class="col-md-3">[[#{NL018}]]</div>
-								</div>
-								<div class="row">
+								<div class="row p-2">
+									<div class="col-md-3 font-weight-bold">[[#{NL016}]]</div>
 									<div class="col-md-3" th:text="${detail.moonPhase?:'-'}"></div>
+									<div class="col-md-3 font-weight-bold">[[#{NL017}]]</div>
 									<div class="col-md-3"
 										th:text="${detail.nearestStormDistance?:'-'}"></div>
+								</div>
+								<div class="row p-2">
+									<div class="col-md-3 font-weight-bold">[[#{NL018}]]</div>
 									<div class="col-md-3" th:text="${detail.ozone?:'-'}"></div>
 								</div>
 							</div>
 							<div class=" form-group">
-								<div class="row">
-									<div class="col-md-3">[[#{NL019}]]</div>
-									<div class="col-md-3">[[#{NL020}]]</div>
-								</div>
-								<div class="row">
+								<div class="row p-2">
+									<div class="col-md-3 font-weight-bold">[[#{NL019}]]</div>
 									<div class="col-sm-3" th:text="${detail.uvIndex?:'-'}"></div>
+								</div>
+								<div class="row p-2">
+									<div class="col-md-3 font-weight-bold">[[#{NL020}]]</div>
 									<div class="col-sm-3"
 										th:text="${detail.uvIndexTimeDisplay?:'-'}"></div>
 
@@ -132,28 +136,27 @@
 					<div id="precip" class="tab-pane" role="tabpanel">
 						<div class="p-3">
 							<div class=" form-group">
-								<div class="row">
-									<div class="col-md-3">[[#{NL021}]]</div>
-									<div class="col-md-3">[[#{NL022}]]</div>
-									<div class="col-md-3">[[#{NL023}]]</div>
-								</div>
-								<div class="row">
-									<div class="col-md-3" th:text="${detail.precipIntensity?:'-'}"></div>
-									<div class="col-md-3"
+								<div class="row p-2">
+									<div class="col-md-3  font-weight-bold">[[#{NL021}]]</div>
+									<div class="col-md-3 " th:text="${detail.precipIntensity?:'-'}"></div>
+									<div class="col-md-3 font-weight-bold">[[#{NL022}]]</div>
+									<div class="col-md-3 "
 										th:text="${detail.precipIntensityError?:'-'}"></div>
+								</div>
+								<div class="row  p-2">
+									<div class="col-md-3 font-weight-bold">[[#{NL023}]]</div>
 									<div class="col-md-3"
 										th:text="${detail.precipIntensityMax?:'-'}"></div>
+									<div class="col-md-3 font-weight-bold">[[#{NL024}]]</div>
+									<div class="col-md-3"
+										th:text="${detail.precipIntensityMaxTimeDisplay?:'-'}"></div>
 								</div>
 							</div>
 							<div class=" form-group">
-								<div class="row">
-									<div class="col-md-3">[[#{NL024}]]</div>
-									<div class="col-md-3">[[#{NL025}]]</div>
-								</div>
-								<div class="row">
-									<div class="col-md-3"
-										th:text="${detail.precipIntensityMaxTimeDisplay?:'-'}"></div>
-									<div class="col-md-3" th:text="${detail.precipType?:'-'}"></div>
+								<div class="row p-2">
+									<div class="col-md-3 font-weight-bold">[[#{NL025}]]</div>
+									<div class="col-md-3 text-uppercase"
+										th:text="${detail.precipType?:'-'}"></div>
 								</div>
 							</div>
 						</div>
@@ -161,25 +164,23 @@
 					<div id="wind" class="tab-pane" role="tabpanel">
 						<div class="p-3">
 							<div class=" form-group">
-								<div class="row">
-									<div class="col-sm-3">[[#{NL026}]]</div>
-									<div class="col-sm-3">[[#{NL027}]]</div>
-									<div class="col-sm-3">[[#{NL028}]]</div>
-								</div>
-								<div class="row">
+								<div class="row p-2">
+									<div class="col-sm-3 font-weight-bold">[[#{NL026}]]</div>
 									<div class="col-sm-3" th:text="${detail.visibility?:'-'}"></div>
+									<div class="col-sm-3 font-weight-bold">[[#{NL027}]]</div>
 									<div class="col-sm-3" th:text="${detail.windBearing?:'-'}"></div>
+								</div>
+								<div class="row p-2">
+									<div class="col-sm-3 font-weight-bold">[[#{NL028}]]</div>
 									<div class="col-sm-3"
 										th:text="${detail.windGustTimeDisplay?:'-'}"></div>
+									<div class="col-sm-3 font-weight-bold">[[#{NL029}]]</div>
+									<div class="col-sm-3" th:text="${detail.windSpeed?:'-'}"></div>
 								</div>
 							</div>
 							<div class=" form-group">
-								<div class="row">
-									<div class="col-sm-3">[[#{NL029}]]</div>
-									<div class="col-sm-3">[[#{NL030}]]</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-3" th:text="${detail.windSpeed?:'-'}"></div>
+								<div class="row p-2">
+									<div class="col-sm-3 font-weight-bold">[[#{NL030}]]</div>
 									<div class="col-sm-3" th:text="${detail.visibility?:'-'}"></div>
 								</div>
 							</div>
@@ -187,85 +188,92 @@
 					</div>
 					<div id="temp" class="tab-pane" role="tabpanel">
 						<div class="p-3">
-							<div class=" form-group">
+							<div class=" form-group center">
 								<div class="row">
-									<div class="col-md-3">[[#{NL031}]]</div>
-									<div class="col-md-3">[[#{NL032}]]</div>
-									<div class="col-md-3">[[#{NL033}]]</div>
-									<div class="col-md-3">[[#{NL034}]]</div>
-								</div>
-								<div class="row">
-									<div class="col-md-3" th:text="${detail.temperatureHigh?:'-'}"></div>
-									<div class="col-md-3"
-										th:text="${detail.temperatureHighTimeDisplay?:'-'}"></div>
-									<div class="col-md-3" th:text="${detail.temperatureLow?:'-'}"></div>
-									<div class="col-md-3"
-										th:text="${detail.temperatureLowTimeDisplay?:'-'}"></div>
-								</div>
-							</div>
-							<div class=" form-group">
-								<div class="row">
-									<div class="col-md-3">[[#{NL035}]]</div>
-									<div class="col-md-3">[[#{NL036}]]</div>
-									<div class="col-md-3">[[#{NL037}]]</div>
-									<div class="col-md-3">[[#{NL038}]]</div>
-								</div>
-								<div class="row">
-									<div class="col-md-3" th:text="${detail.temperatureMax?:'-'}"></div>
-									<div class="col-md-3"
-										th:text="${detail.temperatureMaxTimeDisplay?:'-'}"></div>
-									<div class="col-md-3" th:text="${detail.temperatureMin?:'-'}"></div>
-									<div class="col-md-3"
-										th:text="${detail.temperatureMinTimeDisplay?:'-'}"></div>
+									<table class="table-bordered text-center table-responsive-md table-sm temp-table">
+										<thead>
+											<tr>
+												<th></th>
+												<th scope="col">[[#{NL044}]]</th>
+												<th scope="col">[[#{NL045}]]</th>
+											</tr>
+											<tr>
+												<th scope="row">[[#{NL034}]]</th>
+												<td th:text="${detail.temperatureLow?:'-'}"></td>
+												<td th:text="${detail.temperatureLowTimeDisplay?:'-'}"></td>
+											</tr>
+											<tr>
+												<th scope="row">[[#{NL031}]]</th>
+												<td th:text="${detail.temperatureHigh?:'-'}"></td>
+												<td th:text="${detail.temperatureHighTimeDisplay?:'-'}"></td>
+											</tr>
+											<tr>
+												<th scope="row">[[#{NL037}]]</th>
+												<td th:text="${detail.temperatureMin?:'-'}"></td>
+												<td th:text="${detail.temperatureMinTimeDisplay?:'-'}"></td>
+											</tr>
+											<tr>
+												<th scope="row">[[#{NL035}]]</th>
+												<td th:text="${detail.temperatureMax?:'-'}"></td>
+												<td th:text="${detail.temperatureMaxTimeDisplay?:'-'}"></td>
+											</tr>
+
+										</thead>
+										<tbody>
+
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div id="appTemp" class="tab-pane" role="tabpanel">
-						<div class="p-3">
-							<div class=" form-group">
-								<div class="row ">
-									<div class="col-md-3">[[#{NL039}]]</div>
-									<div class="col-md-3">[[#{NL040}]]</div>
-									<div class="col-md-3">[[#{NL041}]]</div>
-									<div class="col-md-3">[[#{NL042}]]</div>
-								</div>
+						<div class="p-3 text-center">
+							<div class=" form-group center">
 								<div class="row">
-									<div class="col-md-3"
-										th:text="${detail.apparentTemperatureHigh?:'-'}"></div>
-									<div class="col-md-3"
-										th:text="${detail.apparentTemperatureHighTimeDisplay?:'-'}"></div>
-									<div class="col-md-3"
-										th:text="${detail.apparentTemperatureLow?:'-'}"></div>
-									<div class="col-md-3"
-										th:text="${detail.apparentTemperatureLowTimeDisplay?:'-'}"></div>
-								</div>
-							</div>
-							<div class=" form-group">
-								<div class="row">
-									<div class="col-md-3">[[#{NL043}]]</div>
-									<div class="col-md-3">[[#{NL044}]]</div>
-									<div class="col-md-3">[[#{NL045}]]</div>
-									<div class="col-md-3">[[#{NL046}]]</div>
-								</div>
-								<div class="row">
-									<div class="col-md-3"
-										th:text="${detail.apparentTemperatureMax?:'-'}"></div>
-									<div class="col-md-3"
-										th:text="${detail.apparentTemperatureMaxTimeDisplay?:'-'}"></div>
-									<div class="col-md-3"
-										th:text="${detail.apparentTemperatureMin?:'-'}"></div>
-									<div class="col-md-3"
-										th:text="${detail.apparentTemperatureMinTimeDisplay?:'-'}"></div>
-								</div>
-							</div>
-							<div class=" form-group">
-								<div class="row ">
-									<div class="col-md-3">[[#{NL047}]]</div>
-								</div>
-								<div class="row">
-									<div class="col-md-3"
-										th:text="${detail.apparentTemperature?:'-'}"></div>
+									<table
+										class="table-bordered text-center table-responsive-md table-sm temp-table">
+										<thead>
+											<tr>
+												<th></th>
+												<th scope="col">[[#{NL044}]]</th>
+												<th scope="col">[[#{NL045}]]</th>
+											</tr>
+											<tr>
+												<th scope="row">[[#{NL043}]]</th>
+												<td th:text="${detail.apparentTemperature?:'-'}"></td>
+												<td th:text="${detail.timeDisplay?:'-'}"></td>
+											</tr>
+											<tr>
+												<th scope="row">[[#{NL040}]]</th>
+												<td th:text="${detail.apparentTemperatureLow?:'-'}"></td>
+												<td
+													th:text="${detail.apparentTemperatureLowTimeDisplay?:'-'}"></td>
+											</tr>
+											<tr>
+												<th scope="row">[[#{NL039}]]</th>
+												<td th:text="${detail.apparentTemperatureHigh?:'-'}"></td>
+												<td
+													th:text="${detail.apparentTemperatureHighTimeDisplay?:'-'}"></td>
+											</tr>
+											<tr>
+												<th scope="row">[[#{NL042}]]</th>
+												<td th:text="${detail.apparentTemperatureMin?:'-'}"></td>
+												<td
+													th:text="${detail.apparentTemperatureMinTimeDisplay?:'-'}"></td>
+											</tr>
+											<tr>
+												<th scope="row">[[#{NL041}]]</th>
+												<td th:text="${detail.apparentTemperatureMax?:'-'}"></td>
+												<td
+													th:text="${detail.apparentTemperatureMaxTimeDisplay?:'-'}"></td>
+											</tr>
+
+										</thead>
+										<tbody>
+
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
